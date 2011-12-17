@@ -14,8 +14,18 @@ class LevelLayer
 /* Just displays a static image */
 class BackgroundImageLayer extends LevelLayer
   constructor: (@image, @relativeSpeed = 1) ->
-  draw: (camera) -> ctx.drawImage @image, -camera.x * @relativeSpeed, \
-                                          -camera.y * @relativeSpeed
+  draw: (camera) ->
+    originPosX = -((camera.x * @relativeSpeed) % @image.width)
+    originPosY = -((camera.y * @relativeSpeed) % @image.height)
+    rightBorder = originPosX + @image.width
+    bottomBorder = originPosY + @image.height
+    ctx.drawImage @image, originPosX, originPosY
+    if rightBorder <= canvas.width
+      ctx.drawImage @image, rightBorder, originPosY
+    if bottomBorder <= canvas.height
+      ctx.drawImage @image, originPosX, bottomBorder
+    if rightBorder <= canvas.width and bottomBorder <= canvas.height
+      ctx.drawImage @image, rightBorder, bottomBorder
 
 
 /* Where should which color point */
