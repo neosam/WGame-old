@@ -17,6 +17,33 @@ class StaticImageLayer extends LevelLayer
   draw: (camera) -> ctx.drawImage(@image, camera.x, camera.y)
 
 
+/* Where should which color point */
+colorTileTable =
+   '255 255 255': [0, 0],
+   '0 0 0': [1, 0]
+
+/* laod tiles and level data from an image */
+loadTileFromImage = (image) ->
+  tiles = new Tiles(image.width, image.height)
+  fakeCanvas = $ '<canvas>'
+  fakeCanvas[0].width = image.width
+  fakeCanvas[0].height = image.height
+  fakeCtx = fakeCanvas[0].getContext('2d')
+  fakeCtx.drawImage(image, 0, 0)
+  imageData = fakeCtx.getImageData(0, 0, image.width, image.height)
+  pixelData = imageData.data
+  for y in [0...image.height]
+    for x in [0...image.width]
+      index = y * image.height + x
+      red = pixelData[index * 4]
+      green = pixelData[index * 4 + 1]
+      blue = pixelData[index * 4 + 2]
+      tilePosition = colorTileTable["#{red} #{green} #{blue}"]
+      tilePosition ?= [0, 0]
+      tiles.getTileAt(x, y).index = tilePosition
+  {tiles: tiles}
+
+
 
 class Tiles
   constructor: (@width, @height) ->
@@ -61,18 +88,22 @@ $(document).ready ->
     alert 'Could not initialize canvas'
     return
 
+
   ctx = canvas.getContext '2d'
   image = new Image()
   image.src = 'media/logo.png'
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
-  tiles = new Tiles(32, 32)
-  tiles.getTileAt(1, 1).index = [1, 0]
+  levelImg = new Image()
+  levelImg.onload = ->
+    loader = loadTileFromImage levelImg
+    tiles = loader.tiles
 
-  layer = new TileLayer 32, 32, tilesImg, tiles
-  level = new Level 32, 32
-  level.addLayer layer
-  window.setInterval 'draw()', 33
+    layer = new TileLayer 32, 32, tilesImg, tiles
+    level = new Level 32, 32
+    level.addLayer layer
+    window.setInterval 'draw()', 33
+  levelImg.src = 'media/level.png'
 
 
 
