@@ -47,26 +47,38 @@ keyDefinition =
   65: 'KEY_D'
 
 /* Input Events */
-inputToFunctionMapping =
-  goNorth: ->
-  goSouth: ->
-  goEast: ->
-  goWest: ->
+eventFunctionTable =
+  startGoNorth: ->
+  startGoSouth: ->
+  startGoEast: ->
+  startGoWest: ->
 /* KeyboardMappingTable */
-keyboardMappingTable =
-  KEY_UP: 'goNorth'
-  KEY_DOWN: 'goSouth'
-  KEY_RIGHT: 'goEast'
-  KEY_LEFT: 'goWest'
-  KEY_W: 'goNorth'
-  KEY_S: 'goSouth'
-  KEY_D: 'goEast'
-  KEY_A: 'goWest'
+keydownEventTable =
+  KEY_UP: 'startGoNorth'
+  KEY_DOWN: 'startGoSouth'
+  KEY_RIGHT: 'startGoEast'
+  KEY_LEFT: 'startGoWest'
+  KEY_W: 'startGoNorth'
+  KEY_S: 'startGoSouth'
+  KEY_D: 'startGoEast'
+  KEY_A: 'startGoWest'
+keyupEventTable =
+  KEY_UP: 'stopGoNorth'
+  KEY_DOWN: 'stopGoSouth'
+  KEY_RIGHT: 'stopGoEast'
+  KEY_LEFT: 'stopGoWest'
+  KEY_W: 'stopGoNorth'
+  KEY_S: 'stopGoSouth'
+  KEY_D: 'stopGoEast'
+  KEY_A: 'stopGoWest'
 
-getActionNameForKey = (key) -> keyboardMappingTable[keyDefinition[key]]
-getActionForKey = (key) -> inputToFunctionMapping[keyboardMappingTable[keyDefinition[key]]]
-doActionForKey = (key) -> getActionForKey(key)()
-setAction = (action, func) -> inputToFunctionMapping[action] = func
+getActionNameForKeyDown = (key) -> keydownEventTable[keyDefinition[key]]
+getActionForKeyDown = (key) -> eventFunctionTable[keydownEventTable[keyDefinition[key]]]
+doActionForKeyDown = (key) -> getActionForKeyDown(key)()
+getActionNameForKeyUp = (key) -> keyupEventTable[keyDefinition[key]]
+getActionForKeyUp = (key) -> eventFunctionTable[keyupEventTable[keyDefinition[key]]]
+doActionForKeyUp = (key) -> getActionForKeyUp(key)()
+setAction = (action, func) -> eventFunctionTable[action] = func
 
 
 
@@ -138,8 +150,12 @@ class Level
     @layers.push layer
   draw: -> layer.draw @camera for layer in @layers
 
+movementX = 0
+movementY = 0
 
 draw = ->
+  level.camera.x += movementX
+  level.camera.y += movementY
   level.draw()
 
 $(document).ready ->
@@ -157,10 +173,14 @@ $(document).ready ->
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
-  setAction 'goNorth', -> level.camera.y--
-  setAction 'goSouth', -> level.camera.y++
-  setAction 'goWest', -> level.camera.x--
-  setAction 'goEast', -> level.camera.x++
+  setAction 'startGoNorth', -> movementY = -1
+  setAction 'startGoSouth', -> movementY = 1
+  setAction 'startGoWest', -> movementX = -1
+  setAction 'startGoEast', -> movementX = 1
+  setAction 'stopGoNorth', -> movementY = 0
+  setAction 'stopGoSouth', -> movementY = 0
+  setAction 'stopGoWest', -> movementX = 0
+  setAction 'stopGoEast', -> movementX = 0
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
@@ -172,7 +192,9 @@ $(document).ready ->
     level.addLayer layer
     level.addLayer fgLayer
     $(window).keydown (event) ->
-      doActionForKey(event.which)
+      doActionForKeyDown(event.which)
+    $(window).keyup (event) ->
+      doActionForKeyUp(event.which)
     window.setInterval 'draw()', 33
   levelImg.src = 'media/level.png'
 
