@@ -1,4 +1,4 @@
-/* Where should which color point */
+# Where should which color point
 colorTileTable =
   '255 255 255': {}
   '0 0 0':
@@ -7,7 +7,7 @@ colorTileTable =
     walkable: false,
     visible: false
 
-/* laod tiles and level data from an image */
+# laod tiles and level data from an image
 loadTileFromImage = (image) ->
   tiles = new Tiles(image.width, image.height)
   fakeCanvas = $ '<canvas>'

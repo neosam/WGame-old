@@ -1,4 +1,4 @@
-/* Keyboard Codes Definition */
+# Keyboard Codes Definition
 keyDefinition =
   38: 'KEY_UP'
   40: 'KEY_DOWN'
@@ -9,14 +9,14 @@ keyDefinition =
   68: 'KEY_A'
   65: 'KEY_D'
 
-/* Action to function mapping */
+# Action to function mapping
 actionFunctionTable =
   startGoNorth: ->
   startGoSouth: ->
   startGoEast: ->
   startGoWest: ->
 
-/* KeyboardMappingTable */
+# KeyboardMappingTable
 keydownActionTable =
   KEY_UP: 'startGoNorth'
   KEY_DOWN: 'startGoSouth'
@@ -36,18 +36,18 @@ keyupActionTable =
   KEY_D: 'stopGoEast'
   KEY_A: 'stopGoWest'
 
-/*** action helper functions ***/
-/* Get Action name for keypress or release */
+### action helper functions ###
+# Get Action name for keypress or release
 getActionNameForKeyDown = (key) -> keydownActionTable[keyDefinition[key]]
 getActionNameForKeyUp = (key) -> keyupActionTable[keyDefinition[key]]
 
-/* Get function  for keypress or release */
+# Get function  for keypress or release
 getActionForKeyDown = (key) -> actionFunctionTable[keydownActionTable[keyDefinition[key]]]
 getActionForKeyUp = (key) -> actionFunctionTable[keyupActionTable[keyDefinition[key]]]
 
-/* Do Action for keypress or release */
+# Do Action for keypress or release
 doActionForKeyDown = (key) -> getActionForKeyDown(key)()
 doActionForKeyUp = (key) -> getActionForKeyUp(key)()
 
-/* Assign an Action */
+# Assign an Action
 setAction = (action, func) -> actionFunctionTable[action] = func

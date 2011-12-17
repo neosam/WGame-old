@@ -1,9 +1,9 @@
-/* Defines drawing position */
+# Defines drawing position
 class Camera
   constructor: (@x = 0, @y = 0) ->
 
 
-/* Stores the level */
+# Stores the level
 class Level
   constructor: (@width, @height, @camera = new Camera()) ->
     @layers = new Array()
@@ -13,13 +13,13 @@ class Level
   draw: -> layer.draw @camera for layer in @layers
 
 
-/* Abstract class for a drawing layer */
+# Abstract class for a drawing layer
 class LevelLayer
   constructor: (@level)
   draw: (camera) ->
 
 
-/* Just displays a static image */
+# Just displays a static image
 class BackgroundImageLayer extends LevelLayer
   constructor: (@image, @relativeSpeed = 1) ->
   draw: (camera) ->
