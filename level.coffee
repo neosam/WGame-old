@@ -23,8 +23,8 @@ class LevelLayer
 class BackgroundImageLayer extends LevelLayer
   constructor: (@image, @relativeSpeed = 1) ->
   draw: (camera) ->
-    originPosX = -((camera.x * @relativeSpeed) % @image.width)
-    originPosY = -((camera.y * @relativeSpeed) % @image.height)
+    originPosX = -((camera.x * @relativeSpeed + @image.width * 100) % @image.width)
+    originPosY = -((camera.y * @relativeSpeed + @image.height * 100) % @image.height)
     rightBorder = originPosX + @image.width
     bottomBorder = originPosY + @image.height
     ctx.drawImage @image, originPosX, originPosY
