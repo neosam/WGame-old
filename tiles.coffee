@@ -3,8 +3,8 @@ colorTileTable =
   '255 255 255': {}
   '0 0 0':
     index: [1, 0]
+    walkable: true
   '255 0 255':
-    walkable: false,
     visible: false
 
 # laod tiles and level data from an image
@@ -37,6 +37,8 @@ class Tiles
     @tiles = new Array()
     @tiles.push {index: [0, 0]} for [0...@width * @height]
   getTileAt: (x, y) -> @tiles[y * @width + x]
+  getTileAtPixelPosition: (x, y) -> @getTileAt Math.floor(x / @width), \
+                                               Math.floor(y / @height)
 
 class TileLayer extends LevelLayer
   constructor: (@tileWidth, @tileHeight, @tileImage, @tiles) ->

@@ -45,8 +45,9 @@ $(document).ready ->
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     spriteLayer = new SpriteLayer()
-    player = new Sprite tilesImg, 32, 32
+    player = new Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
+    player.position = [64, 64]
     spriteLayer.addSprite player
     level = new Level 32, 32
     level.addLayer bgLayer
