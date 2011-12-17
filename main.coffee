@@ -111,6 +111,8 @@ $(document).ready ->
   ctx = canvas.getContext '2d'
   image = new Image()
   image.src = 'media/logo.png'
+  fgImage = new Image()
+  fgImage.src = 'media/foreground.png'
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
@@ -118,10 +120,12 @@ $(document).ready ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
     bgLayer = new BackgroundImageLayer image, .2
+    fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     level = new Level 32, 32
     level.addLayer bgLayer
     level.addLayer layer
+    level.addLayer fgLayer
     window.setInterval 'draw()', 33
   levelImg.src = 'media/level.png'
 
