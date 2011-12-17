@@ -42,9 +42,14 @@ $(document).ready ->
     bgLayer = new BackgroundImageLayer image, 0.2
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
+    spriteLayer = new SpriteLayer()
+    sprite = new Sprite tilesImg, 32, 32
+    sprite.innerPos = [0, 10]
+    spriteLayer.addSprite sprite
     level = new Level 32, 32
     level.addLayer bgLayer
     level.addLayer layer
+    level.addLayer spriteLayer
     level.addLayer fgLayer
     $(window).keydown (event) ->
       doActionForKeyDown(event.which)
