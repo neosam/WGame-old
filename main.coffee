@@ -12,9 +12,10 @@ class LevelLayer
   draw: (camera) ->
 
 /* Just displays a static image */
-class StaticImageLayer extends LevelLayer
-  constructor: (@image) ->
-  draw: (camera) -> ctx.drawImage(@image, camera.x, camera.y)
+class BackgroundImageLayer extends LevelLayer
+  constructor: (@image, @relativeSpeed = 1) ->
+  draw: (camera) -> ctx.drawImage @image, -camera.x * @relativeSpeed, \
+                                          -camera.y * @relativeSpeed
 
 
 /* Where should which color point */
@@ -106,8 +107,10 @@ $(document).ready ->
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
+    bgLayer = new BackgroundImageLayer image, .2
     layer = new TileLayer 32, 32, tilesImg, tiles
     level = new Level 32, 32
+    level.addLayer bgLayer
     level.addLayer layer
     window.setInterval 'draw()', 33
   levelImg.src = 'media/level.png'
