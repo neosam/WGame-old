@@ -19,8 +19,12 @@ class StaticImageLayer extends LevelLayer
 
 /* Where should which color point */
 colorTileTable =
-   '255 255 255': [0, 0],
-   '0 0 0': [1, 0]
+   '255 255 255': {}
+   '0 0 0':
+      index: [1, 0]
+   '255 0 255':
+      walkable: false,
+      visible: false
 
 /* laod tiles and level data from an image */
 loadTileFromImage = (image) ->
@@ -38,9 +42,11 @@ loadTileFromImage = (image) ->
       red = pixelData[index * 4]
       green = pixelData[index * 4 + 1]
       blue = pixelData[index * 4 + 2]
-      tilePosition = colorTileTable["#{red} #{green} #{blue}"]
-      tilePosition ?= [0, 0]
-      tiles.getTileAt(x, y).index = tilePosition
+      tileData = colorTileTable["#{red} #{green} #{blue}"]
+      tileData ?= {}
+      tiles.getTileAt(x, y).index = tileData.index ? [0, 0]
+      tiles.getTileAt(x, y).walkable = tileData.walkable ? false
+      tiles.getTileAt(x, y).visible = tileData.visible ? true
   {tiles: tiles}
 
 
@@ -57,6 +63,8 @@ class TileLayer extends LevelLayer
     for y in [0...@tiles.height]
       for x in [0...@tiles.width]
         tile = @tiles.getTileAt(x, y)
+        if !tile.visible
+          continue
         tilePosX = tile.index[0] * @tileWidth
         tilePosY = tile.index[1] * @tileHeight
         drawX = x * @tileWidth - camera.x
@@ -98,7 +106,6 @@ $(document).ready ->
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
-
     layer = new TileLayer 32, 32, tilesImg, tiles
     level = new Level 32, 32
     level.addLayer layer
