@@ -7,6 +7,10 @@ class Sprite
                           @width, @height, \
                           @position[0] - camera.x, @position[1] - camera.y, \
                           @width, @height
+  moveNorth: -> @position[1] -= 4
+  moveSouth: -> @position[1] += 4
+  moveWest: -> @position[0] -= 4
+  moveEast: -> @position[0] += 4
 
 
 

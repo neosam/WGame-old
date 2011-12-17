@@ -1,22 +1,24 @@
 canvas=0
 ctx=0
 level=0
-
-
-
+player=0
 
 movementX = 0
 movementY = 0
 
 draw = ->
-  level.camera.x += movementX
-  level.camera.y += movementY
+  player.moveNorth() if movementY < 0
+  player.moveSouth() if movementY > 0
+  player.moveWest() if movementX < 0
+  player.moveEast() if movementX > 0
+  level.camera.x = player.position[0] - (canvas.width - player.width) / 2
+  level.camera.y = player.position[1] - (canvas.height - player.height) / 2
   level.draw()
 
 $(document).ready ->
   canvas = document.getElementById 'gamefield'
   if (!canvas.getContext)
-    alert 'Could not initialize canvas'
+    alert 'Could not initialize canvas.  Please download a real browser'
     return
 
 
@@ -43,9 +45,9 @@ $(document).ready ->
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     spriteLayer = new SpriteLayer()
-    sprite = new Sprite tilesImg, 32, 32
-    sprite.innerPos = [0, 10]
-    spriteLayer.addSprite sprite
+    player = new Sprite tilesImg, 32, 32
+    player.innerPos = [0, 10]
+    spriteLayer.addSprite player
     level = new Level 32, 32
     level.addLayer bgLayer
     level.addLayer layer
