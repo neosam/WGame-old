@@ -184,7 +184,7 @@ $(document).ready ->
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
-    bgLayer = new BackgroundImageLayer image, .2
+    bgLayer = new BackgroundImageLayer image, 0.2
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     level = new Level 32, 32
