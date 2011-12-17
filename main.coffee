@@ -14,8 +14,32 @@ class LevelLayer
 /* Just displays a static image */
 class StaticImageLayer extends LevelLayer
   constructor: (@image) ->
+  draw: (camera) -> ctx.drawImage(@image, camera.x, camera.y)
+
+
+
+class Tiles
+  constructor: (@width, @height) ->
+    @tiles = new Array()
+    @tiles.push {index: [0, 0]} for [0...@width * @height]
+  getTileAt: (x, y) -> @tiles[y * @width + x]
+
+class TileLayer extends LevelLayer
+  constructor: (@tileWidth, @tileHeight, @tileImage, @tiles) ->
   draw: (camera) ->
-     ctx.drawImage(@image, 0, 0)
+    for y in [0...@tiles.height]
+      for x in [0...@tiles.width]
+        tile = @tiles.getTileAt(x, y)
+        tilePosX = tile.index[0] * @tileWidth
+        tilePosY = tile.index[1] * @tileHeight
+        drawX = x * @tileWidth - camera.x
+        drawY = y * @tileHeight - camera.y
+        ctx.drawImage @tileImage, tilePosX, tilePosY, \
+                                  @tileWidth, @tileHeight, \
+                                  drawX, drawY, \
+                                  @tileWidth, @tileHeight
+
+
 
 /* Stores the level */
 class Level
@@ -24,10 +48,11 @@ class Level
     @tiles = new Array()
   addLayer: (layer) ->
     @layers.push layer
-  draw: ->
-    layer.draw @camera for layer in @layers
+  draw: -> layer.draw @camera for layer in @layers
+
 
 draw = ->
+  level.camera.x++
   level.draw()
 
 $(document).ready ->
@@ -39,7 +64,12 @@ $(document).ready ->
   ctx = canvas.getContext '2d'
   image = new Image()
   image.src = 'media/logo.png'
-  layer = new StaticImageLayer image
+  tilesImg = new Image()
+  tilesImg.src = 'media/tiles.png'
+  tiles = new Tiles(32, 32)
+  tiles.getTileAt(1, 1).index = [1, 0]
+
+  layer = new TileLayer 32, 32, tilesImg, tiles
   level = new Level 32, 32
   level.addLayer layer
   window.setInterval 'draw()', 33
