@@ -27,6 +27,48 @@ class BackgroundImageLayer extends LevelLayer
     if rightBorder <= canvas.width and bottomBorder <= canvas.height
       ctx.drawImage @image, rightBorder, bottomBorder
 
+/* KeyboardCodesDefinition */
+KEY_UP = 38
+KEY_DOWN = 40
+KEY_RIGHT = 39
+KEY_LEFT = 37
+KEY_W = 87
+KEY_S = 83
+KEY_D = 68
+KEY_A = 65
+keyDefinition =
+  38: 'KEY_UP'
+  40: 'KEY_DOWN'
+  39: 'KEY_RIGHT'
+  37: 'KEY_LEFT'
+  87: 'KEY_W'
+  83: 'KEY_S'
+  68: 'KEY_A'
+  65: 'KEY_D'
+
+/* Input Events */
+inputToFunctionMapping =
+  goNorth: ->
+  goSouth: ->
+  goEast: ->
+  goWest: ->
+/* KeyboardMappingTable */
+keyboardMappingTable =
+  KEY_UP: 'goNorth'
+  KEY_DOWN: 'goSouth'
+  KEY_RIGHT: 'goEast'
+  KEY_LEFT: 'goWest'
+  KEY_W: 'goNorth'
+  KEY_S: 'goSouth'
+  KEY_D: 'goEast'
+  KEY_A: 'goWest'
+
+getActionNameForKey = (key) -> keyboardMappingTable[keyDefinition[key]]
+getActionForKey = (key) -> inputToFunctionMapping[keyboardMappingTable[keyDefinition[key]]]
+doActionForKey = (key) -> getActionForKey(key)()
+setAction = (action, func) -> inputToFunctionMapping[action] = func
+
+
 
 /* Where should which color point */
 colorTileTable =
@@ -98,7 +140,6 @@ class Level
 
 
 draw = ->
-  level.camera.x++
   level.draw()
 
 $(document).ready ->
@@ -116,6 +157,10 @@ $(document).ready ->
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
+  setAction 'goNorth', -> level.camera.y--
+  setAction 'goSouth', -> level.camera.y++
+  setAction 'goWest', -> level.camera.x--
+  setAction 'goEast', -> level.camera.x++
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
@@ -126,6 +171,8 @@ $(document).ready ->
     level.addLayer bgLayer
     level.addLayer layer
     level.addLayer fgLayer
+    $(window).keydown (event) ->
+      doActionForKey(event.which)
     window.setInterval 'draw()', 33
   levelImg.src = 'media/level.png'
 
