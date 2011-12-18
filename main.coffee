@@ -44,6 +44,140 @@ resetPlayerAnimation = ->
   else
     player.setAnimation 'default'
 
+prepareLevel4 = ->
+  console.log 'prepare level 3'
+  backgroundImage = new Image()
+  backgroundImage.src = 'media/mysticalBG.png'
+  backgroundImage2 = new Image()
+  backgroundImage2.src = 'media/mysticalBG2.png'
+  fgImage = new Image()
+  fgImage.src = 'media/foreground.png'
+  tilesImg = new Image()
+  tilesImg.src = 'media/tiles.png'
+  levelImg = new Image()
+  setAction 'startGoNorth', -> movementY = -1; resetPlayerAnimation()
+  setAction 'startGoSouth', -> movementY = 1; resetPlayerAnimation();
+  setAction 'startGoWest', -> movementX = -1; resetPlayerAnimation();
+  setAction 'startGoEast', -> movementX = 1; resetPlayerAnimation()
+  setAction 'stopGoNorth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoSouth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoWest', -> movementX = 0; resetPlayerAnimation()
+  setAction 'stopGoEast', -> movementX = 0; resetPlayerAnimation()
+  levelImg.onload = ->
+    loader = loadTileFromImage levelImg
+    tiles = loader.tiles
+    bgLayer = new BackgroundImageLayer backgroundImage, 0.3, 33
+    bgLayer.addImage backgroundImage2
+    fgLayer = new BackgroundImageLayer fgImage, 5
+    layer = new TileLayer 32, 32, tilesImg, tiles
+    spriteLayer = new SpriteLayer()
+    player.setAnimation 'dance'
+    player.position = [64, 64]
+    spriteLayer.addSprite player
+    level = new Level 32, 32
+    level.addLayer bgLayer
+    level.addLayer layer
+    level.addLayer spriteLayer
+    level.addLayer fgLayer
+    #level.addLayer fgLayer
+    $(window).keydown (event) ->
+      doActionForKeyDown(event.which)
+    $(window).keyup (event) ->
+      doActionForKeyUp(event.which)
+    calculation = defaultLevelCalculation
+    finalPositionAction = ->
+      calculation = loadSequence testSequence, ->
+        prepareLevel3()
+    finalPositions = [[6, 25]]
+  levelImg.src = 'media/level.png'
+
+prepareLevel3 = ->
+  console.log 'prepare level 3'
+  backgroundImage = new Image()
+  backgroundImage.src = 'media/level3/background.jpg'
+  fgImage = new Image()
+  fgImage.src = 'media/level3/static-foreground.png'
+  tilesImg = new Image()
+  tilesImg.src = 'media/tiles.png'
+  levelImg = new Image()
+  setAction 'startGoNorth', -> movementY = -1; resetPlayerAnimation()
+  setAction 'startGoSouth', -> movementY = 1; resetPlayerAnimation();
+  setAction 'startGoWest', -> movementX = -1; resetPlayerAnimation();
+  setAction 'startGoEast', -> movementX = 1; resetPlayerAnimation()
+  setAction 'stopGoNorth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoSouth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoWest', -> movementX = 0; resetPlayerAnimation()
+  setAction 'stopGoEast', -> movementX = 0; resetPlayerAnimation()
+  levelImg.onload = ->
+    loader = loadTileFromImage levelImg
+    tiles = loader.tiles
+    bgLayer = new BackgroundImageLayer backgroundImage, 0.1, 33
+    fgLayer = new BackgroundImageLayer fgImage, 0
+    layer = new TileLayer 32, 32, tilesImg, tiles
+    spriteLayer = new SpriteLayer()
+    player.setAnimation 'dance'
+    player.position = [64, 64]
+    spriteLayer.addSprite player
+    level = new Level 32, 32
+    level.addLayer bgLayer
+    level.addLayer layer
+    level.addLayer spriteLayer
+    level.addLayer fgLayer
+    #level.addLayer fgLayer
+    $(window).keydown (event) ->
+      doActionForKeyDown(event.which)
+    $(window).keyup (event) ->
+      doActionForKeyUp(event.which)
+    calculation = defaultLevelCalculation
+    finalPositionAction = ->
+      calculation = loadSequence testSequence, ->
+        prepareLevel4()
+    finalPositions = [[6, 25]]
+  levelImg.src = 'media/level.png'
+
+prepareLevel2 = ->
+  console.log 'prepare level 2'
+  backgroundImage = new Image()
+  backgroundImage.src = 'media/level2/background.jpg'
+  fgImage = new Image()
+  fgImage.src = 'media/foreground.png'
+  tilesImg = new Image()
+  tilesImg.src = 'media/tiles.png'
+  levelImg = new Image()
+  setAction 'startGoNorth', -> movementY = -1; resetPlayerAnimation()
+  setAction 'startGoSouth', -> movementY = 1; resetPlayerAnimation();
+  setAction 'startGoWest', -> movementX = -1; resetPlayerAnimation();
+  setAction 'startGoEast', -> movementX = 1; resetPlayerAnimation()
+  setAction 'stopGoNorth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoSouth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoWest', -> movementX = 0; resetPlayerAnimation()
+  setAction 'stopGoEast', -> movementX = 0; resetPlayerAnimation()
+  levelImg.onload = ->
+    loader = loadTileFromImage levelImg
+    tiles = loader.tiles
+    bgLayer = new BackgroundImageLayer backgroundImage, 0.1, 33
+    fgLayer = new BackgroundImageLayer fgImage, 5
+    layer = new TileLayer 32, 32, tilesImg, tiles
+    spriteLayer = new SpriteLayer()
+    player.setAnimation 'dance'
+    player.position = [64, 64]
+    spriteLayer.addSprite player
+    level = new Level 32, 32
+    level.addLayer bgLayer
+    level.addLayer layer
+    level.addLayer spriteLayer
+    #level.addLayer fgLayer
+    $(window).keydown (event) ->
+      doActionForKeyDown(event.which)
+    $(window).keyup (event) ->
+      doActionForKeyUp(event.which)
+    calculation = defaultLevelCalculation
+    finalPositionAction = ->
+      calculation = loadSequence testSequence, ->
+        prepareLevel3()
+    finalPositions = [[6, 25]]
+  levelImg.src = 'media/level.png'
+
 prepareLevel1 = ->
   console.log 'prepare level 1'
   backgroundImage = new Image()
@@ -118,7 +252,7 @@ prepareLevel1 = ->
     calculation = defaultLevelCalculation
     finalPositionAction = ->
       calculation = loadSequence testSequence, ->
-        prepareLevel1()
+        prepareLevel4()
     finalPositions = [[6, 25]]
   levelImg.src = 'media/level.png'
 
