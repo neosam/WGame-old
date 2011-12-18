@@ -4,28 +4,25 @@ testSequence = [
   {
     duration: 4000
     cameraSpeed: [3, 0]
+    cameraPosition: [0, 0]
     layers: [
       {
         imagePaths: ['media/sequence-bg.png']
-        startPosition: [0, 0]
         relativeSpeed: 0
         animationSpeed: 33
       }
       {
         imagePaths: ['media/sequence2.png']
-        startPosition: [0, 0]
         relativeSpeed: 0.5
         animationSpeed: 33
       }
       {
         imagePaths: ['media/sequence1.png']
-        startPosition: [0, 0]
         relativeSpeed: 1
         animationSpeed: 33
       }
       {
         imagePaths: ['media/sequence-staticfont.png']
-        startPosition: [0, 0]
         relativeSpeed: 0
         animationSpeed: 33
       }
@@ -33,8 +30,13 @@ testSequence = [
   }
 ]
 
+sequenceCameraSpeed = [0, 0]
+
 loadPartSequence = (partSeq, func) ->
   newLevel = new Level 0, 0
+  newLevel.camera.x = partSeq.cameraPosition[0]
+  newLevel.camera.y = partSeq.cameraPosition[1]
+  sequenceCameraSpeed = partSeq.cameraSpeed
   for layer in partSeq.layers
      bgLayer = new BackgroundImageLayer layer.images[0], \
                   layer.relativeSpeed ? 1, layer.animationSpeed ? 33
@@ -69,6 +71,7 @@ loadSequence = (seq, func) ->
     loadPartSequence partSeq, internalSequenceLoad
   internalSequenceLoad()
   calculation = ->
-    level.camera.x++
+    level.camera.x += sequenceCameraSpeed[0]
+    level.camera.y += sequenceCameraSpeed[1]
 
 
