@@ -16,7 +16,6 @@ finalPositionAction = ->
 
 
 compareFinalPositions = (playerPos, finalPos) ->
-        console.log Math.floor(playerPos[0] / player.width)
         Math.floor(playerPos[0] / player.width) == finalPos[0] and \
         Math.floor(playerPos[1] / player.height) == finalPos[1]
 
@@ -45,7 +44,7 @@ resetPlayerAnimation = ->
     player.setAnimation 'default'
 
 prepareLevel4 = ->
-  console.log 'prepare level 3'
+  console.log 'prepare level 4'
   backgroundImage = new Image()
   backgroundImage.src = 'media/mysticalBG.png'
   backgroundImage2 = new Image()
@@ -252,7 +251,7 @@ prepareLevel1 = ->
     calculation = defaultLevelCalculation
     finalPositionAction = ->
       calculation = loadSequence testSequence, ->
-        prepareLevel4()
+        prepareLevel2()
     finalPositions = [[6, 25]]
   levelImg.src = 'media/level.png'
 
