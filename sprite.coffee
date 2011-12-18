@@ -2,7 +2,26 @@ class Sprite
   constructor: (@image, @width, @height, @tiles) ->
     @position = [0, 0]
     @innerPos = [0, 0]
+    @animations =
+      default:
+        speed: 1
+        positions: [
+          [0,10]
+        ]
+    @setAnimation 'default'
+  setAnimation: (name) ->
+    @animation = @animations[name]
+    @animationTick = @animation.speed
+    @animationIndex = @animation.positions.length
+  animate: ->
+    @animationTick++
+    if @animationTick >= @animation.speed
+      @animationIndex = (@animationIndex + 1) % @animation.positions.length
+      @innerPos = @animation.positions[@animationIndex]
+      @animationTick = 0
+
   draw: (camera) ->
+    @animate()
     ctx.drawImage @image, @innerPos[0] * @width, @innerPos[1] * @height, \
                           @width, @height, \
                           @position[0] - camera.x, @position[1] - camera.y, \

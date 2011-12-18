@@ -51,6 +51,13 @@ $(document).ready ->
     player = new Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
     player.position = [64, 64]
+    playerAnimation =
+      speed: 11
+      positions: [
+        [1,10], [2, 10]
+      ]
+    player.animations['dance'] = playerAnimation
+    player.setAnimation 'dance'
     spriteLayer.addSprite player
     level = new Level 32, 32
     level.addLayer bgLayer
