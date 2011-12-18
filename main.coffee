@@ -7,12 +7,6 @@ movementX = 0
 movementY = 0
 
 draw = ->
-  #   player.moveNorth() if movementY < 0
-  #   player.moveSouth() if movementY > 0
-  #   player.moveWest() if movementX < 0
-  #   player.moveEast() if movementX > 0
-  #   level.camera.x = player.position[0] - (canvas.width - player.width) / 2
-  #   level.camera.y = player.position[1] - (canvas.height - player.height) / 2
   calculation()
   level.draw()
 
@@ -65,6 +59,13 @@ prepareLevel1 = ->
       doActionForKeyDown(event.which)
     $(window).keyup (event) ->
       doActionForKeyUp(event.which)
+    calculation = ->
+     player.moveNorth() if movementY < 0
+     player.moveSouth() if movementY > 0
+     player.moveWest() if movementX < 0
+     player.moveEast() if movementX > 0
+     level.camera.x = player.position[0] - (canvas.width - player.width) / 2
+     level.camera.y = player.position[1] - (canvas.height - player.height) / 2
   levelImg.src = 'media/level.png'
 
 $(document).ready ->
