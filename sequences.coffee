@@ -28,6 +28,33 @@ testSequence = [
       }
     ]
   }
+  {
+  duration: 4000
+  cameraSpeed: [0, 0.1]
+  cameraPosition: [200, 0]
+  layers: [
+    {
+    imagePaths: ['media/sequence-bg.png']
+    relativeSpeed: 0
+    animationSpeed: 33
+    }
+    {
+    imagePaths: ['media/sequence2.png']
+    relativeSpeed: 0.5
+    animationSpeed: 33
+    }
+    {
+    imagePaths: ['media/sequence1.png']
+    relativeSpeed: 1
+    animationSpeed: 33
+    }
+    {
+    imagePaths: ['media/sequence-staticfont.png']
+    relativeSpeed: 0
+    animationSpeed: 33
+    }
+  ]
+  }
 ]
 
 sequenceCameraSpeed = [0, 0]
