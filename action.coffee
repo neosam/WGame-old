@@ -46,8 +46,8 @@ getActionForKeyDown = (key) -> actionFunctionTable[keydownActionTable[keyDefinit
 getActionForKeyUp = (key) -> actionFunctionTable[keyupActionTable[keyDefinition[key]]]
 
 # Do Action for keypress or release
-doActionForKeyDown = (key) -> getActionForKeyDown(key)()
-doActionForKeyUp = (key) -> getActionForKeyUp(key)()
+doActionForKeyDown = (key) -> getActionForKeyDown(key)?()
+doActionForKeyUp = (key) -> getActionForKeyUp(key)?()
 
 # Assign an Action
 setAction = (action, func) -> actionFunctionTable[action] = func
