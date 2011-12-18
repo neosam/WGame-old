@@ -4,6 +4,33 @@ colorTileTable =
   '0 0 0':
     index: [1, 0]
     walkable: true
+  '1 1 1':
+    index: [2, 0]
+    walkable: true
+  '2 2 2':
+    index: [3, 0]
+    walkable: true
+  '3 3 3':
+    index: [1, 1]
+    walkable: true
+  '4 4 4':
+    index: [2, 1]
+    walkable: true
+  '5 5 5':
+    index: [3, 1]
+    walkable: true
+  '6 6 6':
+    index: [1, 2]
+    walkable: true
+  '7 7 7':
+    index: [2, 2]
+    walkable: true
+  '8 8 8':
+    index: [3, 2]
+    walkable: true
+  '9 9 9':
+    index: [4, 1]
+    walkable: true
   '255 0 255':
     visible: false
 

@@ -24,7 +24,7 @@ $(document).ready ->
 
   ctx = canvas.getContext '2d'
   image = new Image()
-  image.src = 'media/logo.png'
+  image.src = 'media/mysticalBG.png'
   fgImage = new Image()
   fgImage.src = 'media/foreground.png'
   tilesImg = new Image()
@@ -53,7 +53,7 @@ $(document).ready ->
     level.addLayer bgLayer
     level.addLayer layer
     level.addLayer spriteLayer
-    level.addLayer fgLayer
+    #level.addLayer fgLayer
     $(window).keydown (event) ->
       doActionForKeyDown(event.which)
     $(window).keyup (event) ->
