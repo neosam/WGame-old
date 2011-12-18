@@ -12,6 +12,18 @@ draw = ->
 
 calculation = ->
 
+resetPlayerAnimation = ->
+  if movementY < 0
+    player.setAnimation 'goNorth'
+  else if movementY > 0
+    player.setAnimation 'goSouth'
+  else if movementX < 0
+    player.setAnimation 'goWest'
+  else if movementX > 0
+    player.setAnimation 'goEast'
+  else
+    player.setAnimation 'default'
+
 prepareLevel1 = ->
   console.log 'prepare level 1'
   backgroundImage = new Image()
@@ -23,14 +35,14 @@ prepareLevel1 = ->
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
-  setAction 'startGoNorth', -> movementY = -1; player.setAnimation 'goNorth'
-  setAction 'startGoSouth', -> movementY = 1; player.setAnimation 'goSouth'
-  setAction 'startGoWest', -> movementX = -1; player.setAnimation 'goWest'
-  setAction 'startGoEast', -> movementX = 1; player.setAnimation 'goEast'
-  setAction 'stopGoNorth', -> movementY = 0; player.setAnimation 'default'
-  setAction 'stopGoSouth', -> movementY = 0; player.setAnimation 'default'
-  setAction 'stopGoWest', -> movementX = 0; player.setAnimation 'default'
-  setAction 'stopGoEast', -> movementX = 0; player.setAnimation 'default'
+  setAction 'startGoNorth', -> movementY = -1; resetPlayerAnimation()
+  setAction 'startGoSouth', -> movementY = 1; resetPlayerAnimation();
+  setAction 'startGoWest', -> movementX = -1; resetPlayerAnimation();
+  setAction 'startGoEast', -> movementX = 1; resetPlayerAnimation()
+  setAction 'stopGoNorth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoSouth', -> movementY = 0; resetPlayerAnimation()
+  setAction 'stopGoWest', -> movementX = 0; resetPlayerAnimation()
+  setAction 'stopGoEast', -> movementX = 0; resetPlayerAnimation()
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
