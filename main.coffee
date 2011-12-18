@@ -23,14 +23,14 @@ prepareLevel1 = ->
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
-  setAction 'startGoNorth', -> movementY = -1
-  setAction 'startGoSouth', -> movementY = 1
-  setAction 'startGoWest', -> movementX = -1
-  setAction 'startGoEast', -> movementX = 1
-  setAction 'stopGoNorth', -> movementY = 0
-  setAction 'stopGoSouth', -> movementY = 0
-  setAction 'stopGoWest', -> movementX = 0
-  setAction 'stopGoEast', -> movementX = 0
+  setAction 'startGoNorth', -> movementY = -1; player.setAnimation 'goNorth'
+  setAction 'startGoSouth', -> movementY = 1; player.setAnimation 'goSouth'
+  setAction 'startGoWest', -> movementX = -1; player.setAnimation 'goWest'
+  setAction 'startGoEast', -> movementX = 1; player.setAnimation 'goEast'
+  setAction 'stopGoNorth', -> movementY = 0; player.setAnimation 'default'
+  setAction 'stopGoSouth', -> movementY = 0; player.setAnimation 'default'
+  setAction 'stopGoWest', -> movementX = 0; player.setAnimation 'default'
+  setAction 'stopGoEast', -> movementX = 0; player.setAnimation 'default'
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
@@ -42,12 +42,36 @@ prepareLevel1 = ->
     player = new Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
     player.position = [64, 64]
-    playerAnimation =
+    playerDanceAnimation =
       speed: 11
       positions: [
         [1,10], [2, 10]
       ]
-    player.animations['dance'] = playerAnimation
+    playerNorthAnimation =
+      speed: 4
+      positions: [
+        [3,10], [4, 10]
+      ]
+    playerSouthAnimation =
+      speed: 4
+      positions: [
+        [1,10], [2, 10]
+      ]
+    playerWestAnimation =
+      speed: 4
+      positions: [
+        [7,10], [8, 10]
+      ]
+    playerEastAnimation =
+      speed: 4
+      positions: [
+        [5,10], [6, 10]
+      ]
+    player.animations['dance'] = playerDanceAnimation
+    player.animations['goSouth'] = playerSouthAnimation
+    player.animations['goNorth'] = playerNorthAnimation
+    player.animations['goWest'] = playerWestAnimation
+    player.animations['goEast'] = playerEastAnimation
     player.setAnimation 'dance'
     spriteLayer.addSprite player
     level = new Level 32, 32

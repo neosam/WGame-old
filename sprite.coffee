@@ -9,8 +9,11 @@ class Sprite
           [0,10]
         ]
     @setAnimation 'default'
-  setAnimation: (name) ->
-    @animation = @animations[name]
+  setAnimation: (animationName) ->
+    if animationName == @animationName
+      return
+    @animationName = animationName
+    @animation = @animations[animationName] ? @animations['default']
     @animationTick = @animation.speed
     @animationIndex = @animation.positions.length
   animate: ->
