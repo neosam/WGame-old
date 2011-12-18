@@ -205,6 +205,39 @@ prepareLevel1 = ->
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     spriteLayer = new SpriteLayer()
+    enemy = new Enemy tilesImg, 32, 32, tiles
+    enemy.innerPos = [0, 10]
+    enemy.position = [64, 64]
+    enemyDanceAnimation =
+      speed: 11
+      positions: [
+        [1,10], [2, 10]
+      ]
+    enemyNorthAnimation =
+      speed: 4
+      positions: [
+        [3,10], [4, 10]
+      ]
+    enemySouthAnimation =
+      speed: 4
+      positions: [
+        [1,10], [2, 10]
+      ]
+    enemyWestAnimation =
+      speed: 4
+      positions: [
+        [7,10], [8, 10]
+      ]
+    enemyEastAnimation =
+      speed: 4
+      positions: [
+        [5,10], [6, 10]
+      ]
+    enemy.animations['dance'] = enemyDanceAnimation
+    enemy.animations['goSouth'] = enemySouthAnimation
+    enemy.animations['goNorth'] = enemyNorthAnimation
+    enemy.animations['goWest'] = enemyWestAnimation
+    enemy.animations['goEast'] = enemyEastAnimation
     player = new Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
     player.position = [64, 64]
@@ -240,6 +273,7 @@ prepareLevel1 = ->
     player.animations['goEast'] = playerEastAnimation
     player.setAnimation 'dance'
     spriteLayer.addSprite player
+    spriteLayer.addSprite enemy
     level = new Level 32, 32
     level.addLayer bgLayer
     level.addLayer layer

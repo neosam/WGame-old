@@ -40,6 +40,33 @@ class Sprite
           and @tiles.getTileAtPixelPosition(x, y + @height - 1).walkable \
           and @tiles.getTileAtPixelPosition(x + @width, y + @height - 1).walkable
 
+class Enemy extends Sprite
+  constructor: (image, width, height, tiles) ->
+    super(image, width, height, tiles)
+    @movement = 0 # 1 = north, 2 = south, 3 = west, 4 = east
+    @activity = 0.03 # must be between 0 and 1 and definies how oft this one will change
+                    # walking direction
+  draw: (camera) ->
+    @doAI() if Math.random() < @activity
+    @move()
+    super.draw camera
+  doAI: ->
+    if @movement != 0
+      @movement = 0
+      @setAnimation 'dance'
+    else
+      @movement = Math.floor(Math.random() * 4 + 1)
+      switch @movement
+          when 1 then @setAnimation 'goNorth'
+          when 2 then @setAnimation 'goSouth'
+          when 3 then @setAnimation 'goEast'
+          when 4 then @setAnimation 'goWest'
+  move: ->
+    switch @movement
+      when 1 then @moveNorth()
+      when 2 then @moveSouth()
+      when 3 then @moveEast()
+      when 4 then @moveWest()
 
 
 class SpriteLayer extends LevelLayer
