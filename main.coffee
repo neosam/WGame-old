@@ -27,9 +27,9 @@ resetPlayerAnimation = ->
 prepareLevel1 = ->
   console.log 'prepare level 1'
   backgroundImage = new Image()
-  backgroundImage.src = 'media/mysticalBG.png'
+  backgroundImage.src = 'media/level1/background1.jpg'
   backgroundImage2 = new Image()
-  backgroundImage2.src = 'media/mysticalBG2.png'
+  backgroundImage2.src = 'media/level1/background2.jpg'
   fgImage = new Image()
   fgImage.src = 'media/foreground.png'
   tilesImg = new Image()
@@ -46,7 +46,7 @@ prepareLevel1 = ->
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
-    bgLayer = new BackgroundImageLayer backgroundImage, 0.2, 11
+    bgLayer = new BackgroundImageLayer backgroundImage, 1, 33
     bgLayer.addImage backgroundImage2
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
