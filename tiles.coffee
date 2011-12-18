@@ -31,6 +31,66 @@ colorTileTable =
   '9 9 9':
     index: [4, 1]
     walkable: true
+  '16 16 16':
+    index: [1, 3]
+    walkable: true
+  '17 17 17':
+    index: [2, 3]
+    walkable: true
+  '18 18 18':
+    index: [3, 3]
+    walkable: true
+  '19 19 19':
+    index: [1, 4]
+    walkable: true
+  '20 20 20':
+    index: [2, 4]
+    walkable: true
+  '21 21 21':
+    index: [3, 4]
+    walkable: true
+  '22 22 22':
+    index: [1, 5]
+    walkable: true
+  '23 23 23':
+    index: [2, 5]
+    walkable: true
+  '24 24 24':
+    index: [3, 5]
+    walkable: true
+  '25 25 25':
+    index: [4, 4]
+    walkable: true
+  '32 32 32':
+    index: [7, 0]
+    walkable: true
+  '33 33 33':
+    index: [8, 0]
+    walkable: true
+  '34 34 34':
+    index: [9, 0]
+    walkable: true
+  '35 35 35':
+    index: [7, 1]
+    walkable: true
+  '36 36 36':
+    index: [8, 1]
+    walkable: true
+  '37 37 37':
+    index: [9, 1]
+    walkable: true
+  '38 38 38':
+    index: [7, 2]
+    walkable: true
+  '39 39 39':
+    index: [8, 2]
+    walkable: true
+  '40 40 40':
+    index: [9, 2]
+    walkable: true
+  '41 41 41':
+    index: [4, 1]
+    walkable: true
   '255 0 255':
     visible: false
 

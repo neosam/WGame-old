@@ -159,6 +159,7 @@ prepareLevel2 = ->
     layer = new TileLayer 32, 32, tilesImg, tiles
     spriteLayer = new SpriteLayer()
     player.setAnimation 'dance'
+    player.tiles = tiles
     player.position = [64, 64]
     spriteLayer.addSprite player
     level = new Level 32, 32
@@ -175,7 +176,7 @@ prepareLevel2 = ->
       calculation = loadSequence testSequence, ->
         prepareLevel3()
     finalPositions = [[6, 25]]
-  levelImg.src = 'media/level.png'
+  levelImg.src = 'media/level2/level.png'
 
 prepareLevel1 = ->
   console.log 'prepare level 1'
