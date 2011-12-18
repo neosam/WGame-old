@@ -23,8 +23,10 @@ $(document).ready ->
 
 
   ctx = canvas.getContext '2d'
-  image = new Image()
-  image.src = 'media/mysticalBG.png'
+  backgroundImage = new Image()
+  backgroundImage.src = 'media/mysticalBG.png'
+  backgroundImage2 = new Image()
+  backgroundImage2.src = 'media/mysticalBG2.png'
   fgImage = new Image()
   fgImage.src = 'media/foreground.png'
   tilesImg = new Image()
@@ -41,7 +43,8 @@ $(document).ready ->
   levelImg.onload = ->
     loader = loadTileFromImage levelImg
     tiles = loader.tiles
-    bgLayer = new BackgroundImageLayer image, 0.2
+    bgLayer = new BackgroundImageLayer backgroundImage, 0.2, 11
+    bgLayer.addImage backgroundImage2
     fgLayer = new BackgroundImageLayer fgImage, 5
     layer = new TileLayer 32, 32, tilesImg, tiles
     spriteLayer = new SpriteLayer()

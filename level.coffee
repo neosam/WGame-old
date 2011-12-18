@@ -21,8 +21,13 @@ class LevelLayer
 
 # Just displays a static image
 class BackgroundImageLayer extends LevelLayer
-  constructor: (@image, @relativeSpeed = 1) ->
+  constructor: (@image, @relativeSpeed = 1, @animationSpeed = 33) ->
+    @images = new Array()
+    @images.push @image
+    @tick = 0
+    @animationIndex = 0
   draw: (camera) ->
+    @animation()
     originPosX = -((camera.x * @relativeSpeed + @image.width * 100) % @image.width)
     originPosY = -((camera.y * @relativeSpeed + @image.height * 100) % @image.height)
     rightBorder = originPosX + @image.width
@@ -34,5 +39,12 @@ class BackgroundImageLayer extends LevelLayer
       ctx.drawImage @image, originPosX, bottomBorder
     if rightBorder <= canvas.width and bottomBorder <= canvas.height
       ctx.drawImage @image, rightBorder, bottomBorder
-
+  animation: ->
+    @tick++;
+    if @tick > @animationSpeed
+      @tick = 0
+      @animationIndex = (@animationIndex + 1) % @images.length
+      @image = @images[@animationIndex]
+  addImage: (image) ->
+    @images.push image
 
