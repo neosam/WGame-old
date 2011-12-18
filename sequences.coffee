@@ -2,7 +2,7 @@ level = 0
 
 testSequence = [
   {
-    duration: 100
+    duration: 4000
     cameraSpeed: [3, 0]
     layers: [
       {
@@ -57,11 +57,12 @@ loadImagesForSequence = (seq) ->
       layer.images = images
 
 
-loadSequence = (seq) ->
+loadSequence = (seq, func) ->
   loadImagesForSequence seq
   index = 0
   internalSequenceLoad = ->
     if index >= seq.length
+      func()
       return
     partSeq = seq[index]
     index++
