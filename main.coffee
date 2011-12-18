@@ -11,6 +11,26 @@ draw = ->
   level.draw()
 
 calculation = ->
+finalPositions = []
+finalPositionAction = ->
+
+
+compareFinalPositions = (playerPos, finalPos) ->
+        console.log Math.floor(playerPos[0] / player.width)
+        Math.floor(playerPos[0] / player.width) == finalPos[0] and \
+        Math.floor(playerPos[1] / player.height) == finalPos[1]
+
+defaultLevelCalculation = ->
+  player.moveNorth() if movementY < 0
+  player.moveSouth() if movementY > 0
+  player.moveWest() if movementX < 0
+  player.moveEast() if movementX > 0
+  level.camera.x = player.position[0] - (canvas.width - player.width) / 2
+  level.camera.y = player.position[1] - (canvas.height - player.height) / 2
+  for finalPosition in finalPositions
+    if compareFinalPositions player.position, finalPosition
+      finalPositionAction()
+      return
 
 resetPlayerAnimation = ->
   if movementY < 0
@@ -95,13 +115,11 @@ prepareLevel1 = ->
       doActionForKeyDown(event.which)
     $(window).keyup (event) ->
       doActionForKeyUp(event.which)
-    calculation = ->
-     player.moveNorth() if movementY < 0
-     player.moveSouth() if movementY > 0
-     player.moveWest() if movementX < 0
-     player.moveEast() if movementX > 0
-     level.camera.x = player.position[0] - (canvas.width - player.width) / 2
-     level.camera.y = player.position[1] - (canvas.height - player.height) / 2
+    calculation = defaultLevelCalculation
+    finalPositionAction = ->
+      calculation = loadSequence testSequence, ->
+        prepareLevel1()
+    finalPositions = [[6, 25]]
   levelImg.src = 'media/level.png'
 
 $(document).ready ->
