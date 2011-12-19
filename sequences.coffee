@@ -1,5 +1,119 @@
 level = 0
 
+sequence1 = [
+  {
+    duration: 2000
+    cameraSpeed: [0, 0]
+    cameraPosition: [0, 0]
+    layers: [{imagePaths: ['media/level1/story1-1.png']}]
+  }
+  {
+  duration: 2500
+  cameraSpeed: [1, 0]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story2-1.png']
+    relativeSpeed: 0
+    }
+    {
+    imagePaths: ['media/level1/story2-2.png']
+    relativeSpeed: 1
+    }
+  ]
+  }
+  {
+  duration: 3000
+  cameraSpeed: [1, 0]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story3-1.png']
+    relativeSpeed: 0.3
+    }
+    {
+    imagePaths: ['media/level1/story3-2.png']
+    relativeSpeed: -1
+    }
+    {
+    imagePaths: ['media/level1/story3-3.png']
+    relativeSpeed: 0
+    }
+  ]
+  }
+  {
+  duration: 3000
+  cameraSpeed: [1, 0]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story4-1.png']
+    relativeSpeed: 0.5
+    }
+    {
+    imagePaths: ['media/level1/story4-2.png']
+    relativeSpeed: 0
+    }
+  ]
+  }
+  {
+  duration: 4500
+  cameraSpeed: [0, 1]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story5-1.png']
+    relativeSpeed: 0.5
+    }
+    {
+    imagePaths: ['media/level1/story5-2.png']
+    relativeSpeed: 0
+    }
+  ]
+  }
+  {
+  duration: 6500
+  cameraSpeed: [0, 1]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story6-1.png']
+    relativeSpeed: 0.1
+    }
+    {
+    imagePaths: ['media/level1/story6-2.png']
+    relativeSpeed: 0.1
+    }
+    {
+    imagePaths: ['media/level1/story6-3.png']
+    relativeSpeed: 0.5
+    }
+    {
+    imagePaths: ['media/level1/story6-4.png']
+    relativeSpeed: 0
+    }
+    {
+    imagePaths: ['media/level1/story6-5-1.png', 'media/level1/story6-5-2.png']
+    relativeSpeed: 0
+    animationSpeed: 100
+    }
+  ]
+  }
+  {
+  duration: 4000
+  cameraSpeed: [0, 0]
+  cameraPosition: [0, 0]
+  layers: [
+    {
+    imagePaths: ['media/level1/story7-1-1.png', 'media/level1/story7-1-2.png']
+    relativeSpeed: 0
+    animationSpeed: 100
+    }
+  ]
+  }
+
+]
+
 testSequence = [
   {
     duration: 4000
@@ -68,7 +182,7 @@ loadPartSequence = (partSeq, func) ->
      bgLayer = new BackgroundImageLayer layer.images[0], \
                   layer.relativeSpeed ? 1, layer.animationSpeed ? 33
      for i in [1...layer.images.length]
-        bgLayer.addImage layer.images
+        bgLayer.addImage layer.images[i]
      newLevel.addLayer bgLayer
   level = newLevel
   window.setTimeout(func, partSeq.duration)

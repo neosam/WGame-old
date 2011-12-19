@@ -211,33 +211,37 @@ prepareLevel1 = ->
     enemyDanceAnimation =
       speed: 11
       positions: [
-        [1,10], [2, 10]
+        [1,11], [2, 11]
       ]
     enemyNorthAnimation =
       speed: 4
       positions: [
-        [3,10], [4, 10]
+        [3,11], [4, 11]
       ]
     enemySouthAnimation =
       speed: 4
       positions: [
-        [1,10], [2, 10]
+        [1,11], [2, 11]
       ]
     enemyWestAnimation =
       speed: 4
       positions: [
-        [7,10], [8, 10]
+        [7,11], [8, 11]
       ]
     enemyEastAnimation =
       speed: 4
       positions: [
-        [5,10], [6, 10]
+        [5,11], [6, 11]
       ]
+    enemyDefaultAnimation =
+      speed: 11
+      positions: [[0, 11]]
     enemy.animations['dance'] = enemyDanceAnimation
     enemy.animations['goSouth'] = enemySouthAnimation
     enemy.animations['goNorth'] = enemyNorthAnimation
     enemy.animations['goWest'] = enemyWestAnimation
     enemy.animations['goEast'] = enemyEastAnimation
+    enemy.animations['default'] = enemyDefaultAnimation
     player = new Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
     player.position = [64, 64]
@@ -299,7 +303,7 @@ $(document).ready ->
 
   ctx = canvas.getContext '2d'
   level = new Level 0, 0
-  calculation = loadSequence testSequence, ->
+  calculation = loadSequence sequence1, ->
     prepareLevel1()
   window.setInterval 'draw()', 33
 
