@@ -64,9 +64,9 @@ wg.resetPlayerAnimation = ->
 wg.prepareLevel = ->
   console.log 'prepare level 1'
   backgroundImage = new Image()
-  backgroundImage.src = 'media/level1/background1.jpg'
+  backgroundImage.src = 'media/mysticalBG.png'
   backgroundImage2 = new Image()
-  backgroundImage2.src = 'media/level1/background2.jpg'
+  backgroundImage2.src = 'media/mysticalBG2.png'
   fgImage = new Image()
   fgImage.src = 'media/foreground.png'
   tilesImg = new Image()
