@@ -65,7 +65,7 @@ class wg.Enemy extends wg.Sprite
   draw: (camera) ->
     @doAI() if Math.random() < @activity
     @move()
-    super.draw camera
+    super camera
   doAI: ->
     if @movement != 0
       @movement = 0
