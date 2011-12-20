@@ -13,14 +13,16 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+wg ?= new Object()
+
 # Defines drawing position
-class Camera
+class wg.Camera
   constructor: (@x = 0, @y = 0) ->
 
 
 # Stores the level
-class Level
-  constructor: (@width, @height, @camera = new Camera()) ->
+class wg.Level
+  constructor: (@width, @height, @camera = new wg.Camera()) ->
     @layers = new Array()
     @tiles = new Array()
   addLayer: (layer) ->
@@ -29,13 +31,13 @@ class Level
 
 
 # Abstract class for a drawing layer
-class LevelLayer
+class wg.LevelLayer
   constructor: (@level)
   draw: (camera) ->
 
 
 # Just displays a static image
-class BackgroundImageLayer extends LevelLayer
+class wg.BackgroundImageLayer extends wg.LevelLayer
   constructor: (@image, @relativeSpeed = 1, @animationSpeed = 33) ->
     @images = new Array()
     @images.push @image
@@ -47,13 +49,13 @@ class BackgroundImageLayer extends LevelLayer
     originPosY = -((camera.y * @relativeSpeed + @image.height * 100) % @image.height)
     rightBorder = originPosX + @image.width
     bottomBorder = originPosY + @image.height
-    ctx.drawImage @image, originPosX, originPosY
-    if rightBorder <= canvas.width
-      ctx.drawImage @image, rightBorder, originPosY
-    if bottomBorder <= canvas.height
-      ctx.drawImage @image, originPosX, bottomBorder
-    if rightBorder <= canvas.width and bottomBorder <= canvas.height
-      ctx.drawImage @image, rightBorder, bottomBorder
+    wg.ctx.drawImage @image, originPosX, originPosY
+    if rightBorder <= wg.canvas.width
+      wg.ctx.drawImage @image, rightBorder, originPosY
+    if bottomBorder <= wg.canvas.height
+      wg.ctx.drawImage @image, originPosX, bottomBorder
+    if rightBorder <= wg.canvas.width and bottomBorder <= wg.canvas.height
+      wg.ctx.drawImage @image, rightBorder, bottomBorder
   animation: ->
     @tick++;
     if @tick > @animationSpeed

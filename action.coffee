@@ -12,9 +12,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+wg ?= new Object()
 
 # Keyboard Codes Definition
-keyDefinition =
+wg.keyDefinition =
   38: 'KEY_UP'
   40: 'KEY_DOWN'
   39: 'KEY_RIGHT'
@@ -25,14 +26,14 @@ keyDefinition =
   65: 'KEY_D'
 
 # Action to function mapping
-actionFunctionTable =
+wg.actionFunctionTable =
   startGoNorth: ->
   startGoSouth: ->
   startGoEast: ->
   startGoWest: ->
 
 # KeyboardMappingTable
-keydownActionTable =
+wg.keydownActionTable =
   KEY_UP: 'startGoNorth'
   KEY_DOWN: 'startGoSouth'
   KEY_RIGHT: 'startGoEast'
@@ -41,7 +42,7 @@ keydownActionTable =
   KEY_S: 'startGoSouth'
   KEY_D: 'startGoEast'
   KEY_A: 'startGoWest'
-keyupActionTable =
+wg.keyupActionTable =
   KEY_UP: 'stopGoNorth'
   KEY_DOWN: 'stopGoSouth'
   KEY_RIGHT: 'stopGoEast'
@@ -53,16 +54,16 @@ keyupActionTable =
 
 ### action helper functions ###
 # Get Action name for keypress or release
-getActionNameForKeyDown = (key) -> keydownActionTable[keyDefinition[key]]
-getActionNameForKeyUp = (key) -> keyupActionTable[keyDefinition[key]]
+wg.getActionNameForKeyDown = (key) -> wg.keydownActionTable[wg.keyDefinition[key]]
+wg.getActionNameForKeyUp = (key) -> wg.keyupActionTable[wg.keyDefinition[key]]
 
 # Get function  for keypress or release
-getActionForKeyDown = (key) -> actionFunctionTable[keydownActionTable[keyDefinition[key]]]
-getActionForKeyUp = (key) -> actionFunctionTable[keyupActionTable[keyDefinition[key]]]
+wg.getActionForKeyDown = (key) -> wg.actionFunctionTable[wg.keydownActionTable[wg.keyDefinition[key]]]
+wg.getActionForKeyUp = (key) -> wg.actionFunctionTable[wg.keyupActionTable[wg.keyDefinition[key]]]
 
 # Do Action for keypress or release
-doActionForKeyDown = (key) -> getActionForKeyDown(key)?()
-doActionForKeyUp = (key) -> getActionForKeyUp(key)?()
+wg.doActionForKeyDown = (key) -> wg.getActionForKeyDown(key)?()
+wg.doActionForKeyUp = (key) -> wg.getActionForKeyUp(key)?()
 
 # Assign an Action
-setAction = (action, func) -> actionFunctionTable[action] = func
+wg.setAction = (action, func) -> wg.actionFunctionTable[action] = func

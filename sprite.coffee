@@ -12,8 +12,9 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+wg ?= new Object()
 
-class Sprite
+class wg.Sprite
   constructor: (@image, @width, @height, @tiles) ->
     @position = [0, 0]
     @innerPos = [0, 0]
@@ -40,7 +41,7 @@ class Sprite
 
   draw: (camera) ->
     @animate()
-    ctx.drawImage @image, @innerPos[0] * @width, @innerPos[1] * @height, \
+    wg.ctx.drawImage @image, @innerPos[0] * @width, @innerPos[1] * @height, \
                           @width, @height, \
                           @position[0] - camera.x, @position[1] - camera.y, \
                           @width, @height
@@ -55,7 +56,7 @@ class Sprite
           and @tiles.getTileAtPixelPosition(x, y + @height - 1).walkable \
           and @tiles.getTileAtPixelPosition(x + @width, y + @height - 1).walkable
 
-class Enemy extends Sprite
+class wg.Enemy extends wg.Sprite
   constructor: (image, width, height, tiles) ->
     super(image, width, height, tiles)
     @movement = 0 # 1 = north, 2 = south, 3 = west, 4 = east
@@ -84,7 +85,7 @@ class Enemy extends Sprite
       when 4 then @moveWest()
 
 
-class SpriteLayer extends LevelLayer
+class wg.SpriteLayer extends wg.LevelLayer
    constructor: ->
      @sprites = new Array()
    addSprite: (sprite) ->

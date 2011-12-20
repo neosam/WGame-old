@@ -13,54 +13,55 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+wg ?= new Object()
 
-canvas=0
-ctx=0
-level=0
-player=0
+wg.canvas=0
+wg.ctx=0
+wg.level=0
+wg.player=0
 
-movementX = 0
-movementY = 0
+wg.movementX = 0
+wg.movementY = 0
 
-draw = ->
-  calculation()
-  level.draw()
+wg.draw = ->
+  wg.calculation()
+  wg.level.draw()
 
-calculation = ->
-finalPositions = []
-finalPositionAction = ->
+wg.calculation = ->
+wg.finalPositions = []
+wg.finalPositionAction = ->
 
 
-compareFinalPositions = (playerPos, finalPos) ->
-        Math.floor(playerPos[0] / player.width) == finalPos[0] and \
-        Math.floor(playerPos[1] / player.height) == finalPos[1]
+wg.compareFinalPositions = (playerPos, finalPos) ->
+        Math.floor(playerPos[0] / wg.player.width) == finalPos[0] and \
+        Math.floor(playerPos[1] / wg.player.height) == finalPos[1]
 
-defaultLevelCalculation = ->
-  player.moveNorth() if movementY < 0
-  player.moveSouth() if movementY > 0
-  player.moveWest() if movementX < 0
-  player.moveEast() if movementX > 0
-  level.camera.x = player.position[0] - (canvas.width - player.width) / 2
-  level.camera.y = player.position[1] - (canvas.height - player.height) / 2
-  for finalPosition in finalPositions
-    if compareFinalPositions player.position, finalPosition
-      finalPositionAction()
+wg.defaultLevelCalculation = ->
+  wg.player.moveNorth() if wg.movementY < 0
+  wg.player.moveSouth() if wg.movementY > 0
+  wg.player.moveWest() if wg.movementX < 0
+  wg.player.moveEast() if wg.movementX > 0
+  wg.level.camera.x = wg.player.position[0] - (wg.canvas.width - wg.player.width) / 2
+  wg.level.camera.y = wg.player.position[1] - (wg.canvas.height - wg.player.height) / 2
+  for finalPosition in wg.finalPositions
+    if wg.compareFinalPositions wg.player.position, finalPosition
+      wg.finalPositionAction()
       return
 
-resetPlayerAnimation = ->
-  if movementY < 0
-    player.setAnimation 'goNorth'
-  else if movementY > 0
-    player.setAnimation 'goSouth'
-  else if movementX < 0
-    player.setAnimation 'goWest'
-  else if movementX > 0
-    player.setAnimation 'goEast'
+wg.resetPlayerAnimation = ->
+  if wg.movementY < 0
+    wg.player.setAnimation 'goNorth'
+  else if wg.movementY > 0
+    wg.player.setAnimation 'goSouth'
+  else if wg.movementX < 0
+    wg.player.setAnimation 'goWest'
+  else if wg.movementX > 0
+    wg.player.setAnimation 'goEast'
   else
-    player.setAnimation 'default'
+    wg.player.setAnimation 'default'
 
 
-prepareLevel1 = ->
+wg.prepareLevel = ->
   console.log 'prepare level 1'
   backgroundImage = new Image()
   backgroundImage.src = 'media/level1/background1.jpg'
@@ -71,23 +72,23 @@ prepareLevel1 = ->
   tilesImg = new Image()
   tilesImg.src = 'media/tiles.png'
   levelImg = new Image()
-  setAction 'startGoNorth', -> movementY = -1; resetPlayerAnimation()
-  setAction 'startGoSouth', -> movementY = 1; resetPlayerAnimation();
-  setAction 'startGoWest', -> movementX = -1; resetPlayerAnimation();
-  setAction 'startGoEast', -> movementX = 1; resetPlayerAnimation()
-  setAction 'stopGoNorth', -> movementY = 0; resetPlayerAnimation()
-  setAction 'stopGoSouth', -> movementY = 0; resetPlayerAnimation()
-  setAction 'stopGoWest', -> movementX = 0; resetPlayerAnimation()
-  setAction 'stopGoEast', -> movementX = 0; resetPlayerAnimation()
+  wg.setAction 'startGoNorth', -> wg.movementY = -1; wg.resetPlayerAnimation()
+  wg.setAction 'startGoSouth', -> wg.movementY = 1; wg.resetPlayerAnimation();
+  wg.setAction 'startGoWest', -> wg.movementX = -1; wg.resetPlayerAnimation();
+  wg.setAction 'startGoEast', -> wg.movementX = 1; wg.resetPlayerAnimation()
+  wg.setAction 'stopGoNorth', -> wg.movementY = 0; wg.resetPlayerAnimation()
+  wg.setAction 'stopGoSouth', -> wg.movementY = 0; wg.resetPlayerAnimation()
+  wg.setAction 'stopGoWest', -> wg.movementX = 0; wg.resetPlayerAnimation()
+  wg.setAction 'stopGoEast', -> wg.movementX = 0; wg.resetPlayerAnimation()
   levelImg.onload = ->
-    loader = loadTileFromImage levelImg
+    loader = wg.loadTileFromImage levelImg
     tiles = loader.tiles
-    bgLayer = new BackgroundImageLayer backgroundImage, 1, 33
+    bgLayer = new wg.BackgroundImageLayer backgroundImage, 1, 33
     bgLayer.addImage backgroundImage2
-    fgLayer = new BackgroundImageLayer fgImage, 5
-    layer = new TileLayer 32, 32, tilesImg, tiles
-    spriteLayer = new SpriteLayer()
-    enemy = new Enemy tilesImg, 32, 32, tiles
+    fgLayer = new wg.BackgroundImageLayer fgImage, 5
+    layer = new wg.TileLayer 32, 32, tilesImg, tiles
+    spriteLayer = new wg.SpriteLayer()
+    enemy = new wg.Enemy tilesImg, 32, 32, tiles
     enemy.innerPos = [0, 10]
     enemy.position = [64, 64]
     enemyDanceAnimation =
@@ -124,7 +125,7 @@ prepareLevel1 = ->
     enemy.animations['goWest'] = enemyWestAnimation
     enemy.animations['goEast'] = enemyEastAnimation
     enemy.animations['default'] = enemyDefaultAnimation
-    player = new Sprite tilesImg, 32, 32, tiles
+    player = new wg.Sprite tilesImg, 32, 32, tiles
     player.innerPos = [0, 10]
     player.position = [64, 64]
     playerDanceAnimation =
@@ -158,34 +159,36 @@ prepareLevel1 = ->
     player.animations['goWest'] = playerWestAnimation
     player.animations['goEast'] = playerEastAnimation
     player.setAnimation 'dance'
+    wg.player = player
     spriteLayer.addSprite player
     spriteLayer.addSprite enemy
-    level = new Level 32, 32
+    level = new wg.Level 32, 32
     level.addLayer bgLayer
     level.addLayer layer
     level.addLayer spriteLayer
+    wg.level = level
     #level.addLayer fgLayer
     $(window).keydown (event) ->
-      doActionForKeyDown(event.which)
+      wg.doActionForKeyDown(event.which)
     $(window).keyup (event) ->
-      doActionForKeyUp(event.which)
-    calculation = defaultLevelCalculation
-    finalPositionAction = ->
-    finalPositions = [[6, 25]]
+      wg.doActionForKeyUp(event.which)
+    wg.calculation = wg.defaultLevelCalculation
+    wg.finalPositionAction = ->
+    wg.finalPositions = [[6, 25]]
   levelImg.src = 'media/level.png'
 
 $(document).ready ->
-  canvas = document.getElementById 'gamefield'
-  if (!canvas.getContext)
+  wg.canvas = document.getElementById 'gamefield'
+  if (!wg.canvas.getContext)
     alert 'Could not initialize canvas.  Please download a real browser'
     return
 
 
-  ctx = canvas.getContext '2d'
-  level = new Level 0, 0
-  calculation = loadSequence sequence1, ->
-    prepareLevel1()
-  window.setInterval 'draw()', 33
+  wg.ctx = wg.canvas.getContext '2d'
+  wg.level = new wg.Level 0, 0
+  wg.calculation = wg.loadSequence testSequence, ->
+    wg.prepareLevel()
+  window.setInterval 'wg.draw()', 33
 
 
 

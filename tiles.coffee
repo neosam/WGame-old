@@ -12,10 +12,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
-
+wg ?= new Object()
 
 # Where should which color point
-colorTileTable =
+wg.colorTileTable =
   '255 255 255': {}
   '0 0 0':
     index: [1, 0]
@@ -111,8 +111,8 @@ colorTileTable =
     visible: false
 
 # laod tiles and level data from an image
-loadTileFromImage = (image) ->
-  tiles = new Tiles(image.width, image.height)
+wg.loadTileFromImage = (image) ->
+  tiles = new wg.Tiles(image.width, image.height)
   fakeCanvas = $ '<canvas>'
   fakeCanvas[0].width = image.width
   fakeCanvas[0].height = image.height
@@ -126,7 +126,7 @@ loadTileFromImage = (image) ->
       red = pixelData[index * 4]
       green = pixelData[index * 4 + 1]
       blue = pixelData[index * 4 + 2]
-      tileData = colorTileTable["#{red} #{green} #{blue}"]
+      tileData = wg.colorTileTable["#{red} #{green} #{blue}"]
       tileData ?= {}
       tiles.getTileAt(x, y).index = tileData.index ? [0, 0]
       tiles.getTileAt(x, y).walkable = tileData.walkable ? false
@@ -135,15 +135,15 @@ loadTileFromImage = (image) ->
 
 
 
-class Tiles
+class wg.Tiles
   constructor: (@width, @height) ->
     @tiles = new Array()
     @tiles.push {index: [0, 0]} for [0...@width * @height]
   getTileAt: (x, y) -> @tiles[y * @width + x]
-  getTileAtPixelPosition: (x, y) -> @getTileAt Math.floor(x / @width), \
+  getTileAtPixelPosition: (x, y) -> @getTileAt Math.floor(x / @width),
                                                Math.floor(y / @height)
 
-class TileLayer extends LevelLayer
+class wg.TileLayer extends wg.LevelLayer
   constructor: (@tileWidth, @tileHeight, @tileImage, @tiles) ->
   draw: (camera) ->
     for y in [0...@tiles.height]
@@ -155,7 +155,7 @@ class TileLayer extends LevelLayer
         tilePosY = tile.index[1] * @tileHeight
         drawX = x * @tileWidth - camera.x
         drawY = y * @tileHeight - camera.y
-        ctx.drawImage @tileImage, tilePosX, tilePosY,
+        wg.ctx.drawImage @tileImage, tilePosX, tilePosY,
           @tileWidth, @tileHeight,
           drawX, drawY,
           @tileWidth, @tileHeight
