@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LudumDare22.iml" filepath="$PROJECT_DIR$/LudumDare22.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wgame-editor/wgame-editor.iml" filepath="$PROJECT_DIR$/wgame-editor/wgame-editor.iml" />
     </modules>
   </component>
 </project>
