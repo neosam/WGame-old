@@ -16,6 +16,14 @@
 </script>
 </head>
 <body>
+<div style="width: 256px; float:right;">
+    <h2>Choose your tile</h2>
+    <input id="walkable" type="checkbox"/> moveable
+    <br/>
+    <div style="width: 256px; height: 256px; overflow:scroll">
+        <img src="media/tiles.png" id="tiles" />
+    </div>
+</div>
 <h1>WGame Level Editor</h1>
 Modes:
 <button onclick="wg.editor.action = 0;">Nothing</button>
@@ -54,12 +62,6 @@ Canvas not supported by our browser
         <li><label for="addSpriteName">Layer Name</label><input name="addSpriteName"/></li>
         <li><button onclick="wg.editor.actionAddSpriteLayer()">Submit</button></li>
     </div>
-</div>
-<div>
-    <h2>Choose your tile</h2>
-    <input id="walkable" type="checkbox"/> moveable
-    <br/>
-    <img src="media/tiles.png" id="tiles" />
 </div>
 <div>
     <h2>Controller</h2>
