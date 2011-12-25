@@ -17,20 +17,26 @@ $(document).ready ->
       wg.editor.selectionY = Math.floor event.offsetY / 32
       console.log "Selected item: #{wg.editor.selectionX}/#{wg.editor.selectionY}"
     $(wg.canvas).click (event) ->
+      x = event.offsetX + wg.level.camera.x
+      y = event.offsetY + wg.level.camera.y
+      console.log "Insert item at: #{x}/#{y}"
       switch wg.editor.action
         when 1
-          x = event.offsetX + wg.level.camera.x
-          y = event.offsetY + wg.level.camera.y
-          console.log "Insert item at: #{x}/#{y}"
+          walkable = $('#walkable')[0].checked
           tile = wg.editor.tiles.getTileAtPixelPosition(x, y)
           tile.index = [wg.editor.selectionX, wg.editor.selectionY]
           tile.visible = yes
+          tile.walkable = walkable
+        when 2
+          tile = wg.editor.tiles.getTileAtPixelPosition(x, y)
+          tile.visible = no
+
     $(window).keydown (event) ->
        wg.doActionForKeyDown event.which
     wg.actionFunctionTable['startGoNorth'] = ->
-      wg.level.camera.y += 32
-    wg.actionFunctionTable['startGoSouth'] = ->
       wg.level.camera.y -= 32
+    wg.actionFunctionTable['startGoSouth'] = ->
+      wg.level.camera.y += 32
     wg.actionFunctionTable['startGoWest'] = ->
       wg.level.camera.x += 32
     wg.actionFunctionTable['startGoEast'] = ->
