@@ -108,3 +108,38 @@ wg.editor.generateCode = ->
     res.layers.push insert
 
   $('#levelOutput')[0].value = res.toJSONString()
+
+wg.editor.importCode = ->
+  layers = document.getElementById 'layers'
+  layers.options.length = 0
+  code = $('#levelOutput')[0].value
+  data = code.parseJSON()
+  console.log data
+  document.getElementById('tiles').src = data.tilesImage
+  tiles = data.tiles
+  wg.level = new wg.Level 0, 0
+
+  for layer in data.layers
+    insert = null
+    switch layer.type
+      when 'BackgroundLayer'
+        image = new Image()
+        image.src = layer.imagePaths[0]
+        insert = new wg.BackgroundImageLayer image, layer.relativeSpeed, layer.animationSpeed
+        insert.editorPaths = layer.imagePaths
+      when 'TileLayer'
+        image = document.getElementById('tiles')
+        wg.editor.tiles = new wg.Tiles data.tiles.width, data.tiles.height
+        for i in [0...data.tiles.tiles.length]
+          wg.editor.tiles.tiles[i].index = data.tiles.tiles[i].index
+          wg.editor.tiles.tiles[i].visible = data.tiles.tiles[i].visible ? no
+          wg.editor.tiles.tiles[i].walkable = data.tiles.tiles[i].walkable ? no
+        insert = new wg.TileLayer 32, 32, image, wg.editor.tiles
+      when 'SpriteLayer'
+        insert = new wg.SpriteLayer()
+    insert.editorName = layer.name
+    insert.editorType = layer.type
+    wg.level.addLayer insert
+    layers.options.add new Option layer.name, "#{layers.options.length}"
+
+
