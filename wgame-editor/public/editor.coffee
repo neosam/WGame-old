@@ -75,7 +75,7 @@ wg.editor.actionAddTileLayer = ->
 
 wg.editor.actionAddSpriteLayer = ->
   layers = document.getElementById 'layers'
-  name = $('[name="addTileName"]')[0].value
+  name = $('[name="addSpriteName"]')[0].value
   image = document.getElementById 'tiles'
   layer = new wg.SpriteLayer
   layer.editorName = name
