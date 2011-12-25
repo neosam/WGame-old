@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<title>WGame Level Editor</title>
+    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="wgame.js"></script>
+    <script type="text/javascript" src="editor.js"></script>
+    <script type="text/javascript">
+    /*var socket = io.connect('http://localhost');
+    socket.on('news', function(data) {
+        console.log(data);
+        socket.emit ('blub', {abc: 'lalalala'})
+    });*/
+</script>
+</head>
+<body>
+<h1>WGame Level Editor</h1>
+Modes:
+<button onclick="wg.editor.action = 0;">Nothing</button>
+<button onclick="wg.editor.action = 1;">Set Tile</button>
+<button onclick="wg.editor.action = 2;">Set Sprite</button>
+<br/>
+<canvas id="editorfield" width="320" height="240" style="border: solid black 1px">
+Canvas not supported by our browser
+</canvas>
+<div>
+    <h2>Layers</h2>
+<select id="layers" size="10">
+</select>
+<button onclick="$('#addBackgroundLayer').show()">Add Background Layer</button>
+<button onclick="$('#addTileLayer').show()">Add Tile Layer</button>
+<button onclick="$('#addSpriteLayer').show()">Add Sprite Layer</button>
+    <div id="addBackgroundLayer" style="display: none;">
+        <ul>
+            <li><label for="addBGName">Layer Name</label><input name="addBGName"/></li>
+            <li><label for="addBGPath">Image Path</label><input name="addBGPath"/></li>
+            <li><label for="addBGRel">Relative Speed</label><input name="addBGRel"/></li>
+            <li><label for="addBGSpeed">Animation Speed</label><input name="addBGSpeed"/></li>
+            <li><button onclick="wg.editor.actionAddBackgroundLayer()">Submit</button></li>
+        </ul>
+    </div>
+    <div id="addTileLayer" style="display: none;">
+        <ul>
+            <li><label for="addTileName">Layer Name</label><input name="addTileName"/></li>
+            <li><label for="addTileWidth">Level Width</label><input name="addTileWidth"/></li>
+            <li><label for="addTileHeight">Level Height</label><input name="addTileHeight"/></li>
+            <li><button onclick="wg.editor.actionAddTileLayer()">Submit</button></li>
+        </ul>
+    </div>
+    <div id="addSpriteLayer" style="display: none;">
+        <li><label for="addTileName">Layer Name</label><input name="addTileName"/></li>
+        <li><button onclick="wg.editor.actionAddSpriteLayer()">Submit</button></li>
+    </div>
+</div>
+<div>
+    <h2>Choose your tile</h2>
+    <img src="media/tiles.png" id="tiles" />
+</div>
+<div>
+    <h2>Controller</h2>
+    <div id="backgroundcontroller">
+        <ul>
+        <li><label for="imagePath">Image Path</label><input name="imagePath"></input></li>
+        <li><label for="relativeSpeed">Relative Speed</label><input name="relativeSpeed"></input></li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <h2>Export</h2>
+    <button onclick="wg.editor.generateCode">Generate Code</button>
+    <textarea id="levelOutput">
+
+    </textarea>
+</div>
+
+</body>
+</html>
