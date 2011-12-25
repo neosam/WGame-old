@@ -46,6 +46,9 @@ wg.editor.actionAddBackgroundLayer = ->
   image = new Image()
   image.src = imagePath
   layer = new wg.BackgroundImageLayer image, relativeSpeed, animationSpeed
+  layer.editorName = name
+  layer.editorType = 'BackgroundLayer'
+  layer.editorPaths = [imagePath]
   wg.level.addLayer layer
   layers.options.add new Option name, "#{layers.options.length}"
   $('#addBackgroundLayer').hide()
@@ -58,6 +61,8 @@ wg.editor.actionAddTileLayer = ->
   image = document.getElementById 'tiles'
   wg.editor.tiles = new wg.Tiles width, height
   layer = new wg.TileLayer 32, 32, image, wg.editor.tiles
+  layer.editorName = name
+  layer.editorType = 'TileLayer'
   wg.level.addLayer layer
   layers.options.add new Option name, "#{layers.options.length}"
   $('#addTileLayer').hide()
@@ -67,7 +72,33 @@ wg.editor.actionAddSpriteLayer = ->
   name = $('[name="addTileName"]')[0].value
   image = document.getElementById 'tiles'
   layer = new wg.SpriteLayer
+  layer.editorName = name
+  layer.editorType = 'SpriteLayer'
   wg.level.addLayer layer
   layers.options.add new Option name, "#{layers.options.length}"
   $('#addSpriteLayer').hide()
 
+
+wg.editor.generateCode = ->
+  res =
+    type: 'WGame Level'
+    version: '0.1'
+    tilesImage: 'media/tiles.png'
+    tiles: wg.editor.tiles
+    layers: []
+
+  for layer in wg.level.layers
+    insert =
+      name: layer.editorName
+      type: layer.editorType
+    switch layer.editorType
+      when 'BackgroundLayer'
+        insert.animationSpeed = layer.animationSpeed
+        insert.relativeSpeed = layer.relativeSpeed
+        insert.imagePaths = layer.editorPaths
+      when 'TileLayer'
+        insert.width = layer.width
+        insert.height = layer.height
+    res.layers.push insert
+
+  $('#levelOutput')[0].value = res.toJSONString()

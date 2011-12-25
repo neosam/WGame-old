@@ -5,6 +5,7 @@
     <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
     <script type="text/javascript" src="wgame.js"></script>
+    <script type="text/javascript" src="json-js/json.js"></script>
     <script type="text/javascript" src="editor.js"></script>
     <script type="text/javascript">
     /*var socket = io.connect('http://localhost');
@@ -69,7 +70,7 @@ Canvas not supported by our browser
 
 <div>
     <h2>Export</h2>
-    <button onclick="wg.editor.generateCode">Generate Code</button>
+    <button onclick="wg.editor.generateCode()">Generate Code</button>
     <textarea id="levelOutput">
 
     </textarea>
