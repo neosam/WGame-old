@@ -30,6 +30,7 @@ $(document).ready ->
         when 2
           tile = wg.editor.tiles.getTileAtPixelPosition(x, y)
           tile.visible = no
+          tile.walkable = no
 
     $(window).keydown (event) ->
        wg.doActionForKeyDown event.which
@@ -80,6 +81,7 @@ wg.editor.actionAddSpriteLayer = ->
   layer = new wg.SpriteLayer
   layer.editorName = name
   layer.editorType = 'SpriteLayer'
+  wg.editor.spriteLayer = layer
   wg.level.addLayer layer
   layers.options.add new Option name, "#{layers.options.length}"
   $('#addSpriteLayer').hide()
@@ -137,6 +139,7 @@ wg.editor.importCode = ->
         insert = new wg.TileLayer 32, 32, image, wg.editor.tiles
       when 'SpriteLayer'
         insert = new wg.SpriteLayer()
+        wg.editor.spriteLayer = insert
     insert.editorName = layer.name
     insert.editorType = layer.type
     wg.level.addLayer insert
