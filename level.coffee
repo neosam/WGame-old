@@ -65,3 +65,11 @@ class wg.BackgroundImageLayer extends wg.LevelLayer
   addImage: (image) ->
     @images.push image
 
+# Level loading
+wg.Level.loadFromURL = (url, func) ->
+  levelCode = ""
+  $.ajax
+    url: level.js
+    context: levelCode
+    success: ->
+      alert levelCode

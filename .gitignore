@@ -1,4 +1,6 @@
 *.js
 !jquery-1.7.1.min.js
+!cycle.js
+!json*.js    
 .idea/workspace.xml
 node_modules/

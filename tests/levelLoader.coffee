@@ -8,6 +8,7 @@ $(document).load ->
 
   wg.ctx = wg.canvas.getContext '2d'
   wg.level = new wg.Level 0, 0
+  wg.Level.loadFromURL 'level.js'
   wg.calculation = wg.loadSequence testSequence, ->
     wg.prepareLevel()
   window.setInterval 'wg.draw()', 33
