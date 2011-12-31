@@ -1,2 +1,3 @@
 *.js
 !jquery-1.7.1.min.js
+.idea/workspace.xml
