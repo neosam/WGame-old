@@ -1,7 +1,7 @@
 
 if (typeof wg === "undefined" || wg === null) wg = [];
 
-$(document).ready(function() {
+$(document).load(function() {
   wg.canvas = document.getElementById('gamefield');
   if (!wg.canvas.getContext) {
     alert('Could not initialize canvas.  Please download a real browser');
