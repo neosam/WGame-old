@@ -4,3 +4,4 @@
 !json*.js    
 .idea/workspace.xml
 node_modules/
+*.sw*
