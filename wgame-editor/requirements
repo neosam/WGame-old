@@ -1,6 +1,0 @@
-In order to run the editor you will need:
- * socket.io
- * express
- * mongodb
-
- Have fun
