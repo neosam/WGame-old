@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WGame Level file format</title>
+</head>
+<body>
+  <h1>WGame Level file format</h1>
+  <p>
+  The levelfile format of WGame is based on a json file which links to all
+  the ressources which are needed.
+  </p>
+  <h2>Structure of level 0.1</h2>
+  <ul>
+    <li>type:  always "WGame Level"</li>
+    <li>version:  in this case "0.1"</li>
+    <li>tilesImage:  path to the image which holds all the tiles</li>
+    <li>width, height:  level dimension in sprites</li>
+    <li>tiles:  one dimensional array which holds the tiles.  A 
+        tile holds:</li>
+    <ul>
+      <li>index:  the tile index on the tile image.</li>
+      <li>visible (optional):  true if visible, false if not, default
+      is false.</li>
+      <li>walkable (optional):  if a creature can walk on this field.
+      default is false</li>
+    </ul>
+    <li>layers:  array of layers.  Different kinds of layers are:</li>
+    <ul>
+      <li>BackgroundLayer:  a scrollable animated image layer</li>
+      <ul>
+        <li>name:  Layer name</li>
+        <li>type:  "BackgroundLayer"</li>
+        <li>animationSpeed:  when the next frame should be displayed</li>
+        <li>relativeSpeed:  scrolling speed relative to camera</li>
+        <li>imagePaths:  path to all the images in an array</li>
+      </ul>
+      <li>TileLayer:  holds the tiles</li>
+      <ul>
+        <li>name:  Layer name</li>
+        <li>type:  "BackgroundLayer"</li>
+      </ul>
+      <li>SpriteLayer:  holds the sprites</li>
+      <ul>
+        <li>name:  Layer name</li>
+        <li>type:  "BackgroundLayer"</li>
+      </ul>
+    </ul>
+  </ul>
+</body>
+</html>
