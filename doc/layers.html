@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WGame Layer Documentation</title>
+  </head>
+  <body>
+    <h1>WGame Layer Documentation</h1>
+    <p>
+    Use layers for drawing stuff.
+    </p>
+
+    <h2>Classes</h2>
+    <h3>Level Layer (abstract)</h3>
+    <p>This is the base class of all layers.</p>
+    <ul>
+      <li>constructor - does nothing</li>
+      <li>draw(camera) - displays stuff based on the camera position</li>
+    </ul>
+
+    <h3>BackgroundImageLayer</h3>
+    <p>Use this layer to display larger images.  Maybe for background
+    and foreground layer.  It's features are:</p>
+    <ul>
+      <li>Repeat image</li>
+      <li>Scroll speed can be x times faster/slower than camera</li>
+      <li>Add more images to the layer to let it animate</li>
+    </ul>
+    <p>Structure:</p>
+    <ul>
+      <li>constructor(image, relativeSpeed = 1, animationSpeed = 33) -
+      Give it am image and maybe you like to costumize the relativeSpeed
+      to camera or the animationSpeed if you add more images.</li>
+      <li>addImage(image) - Add image for animation</li>
+    </ul>
+    <h3>Sprite layer</h3>
+    <p>All movable tiles with special animations like player, enemy
+    should use the sprite layer.  It depends on sprite objects.</p>
+    <ul>
+      <li>constructor - nothing</li>
+      <li>addSprite(sprite) - add a sprite to the layer</li>
+    </ul>
+    <h3>Tile layer</h3>
+    <p>More or less static parts of the layer which are stored in a
+    two dimensional grid.</p>
+    <ul>
+      <li>constructor(tileWidth, tileHeight, tileImage, tiles) -
+      You must specify the dimension of a tile, an image which holds the tiles
+      and a tiles object.</li>
+    </ul>
+  </body>
+</html>
